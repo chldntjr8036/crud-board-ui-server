@@ -4,6 +4,22 @@ document.addEventListener('DOMContentLoaded', function () {
     let id = currentURI.slice(cutpoint+3, currentURI.length);
     // console.log(id);
 
+    //자리수 맞추기 formatter
+    let format = function(num) {
+        if(num/10 < 1) {
+            return String("0"+num);
+        }
+        return String(num);
+    }
+
+    let date = new Date();
+    let dateTime = date.getFullYear()+'-'
+        +format(date.getMonth())+'-'
+        +format(date.getDay())+'T'
+        +format(date.getHours())+':'
+        +format(date.getMinutes())+':'
+        +format(date.getSeconds());
+
     //현재 페이지에 해당하는 게시글 정보 요청
     $.ajax({
         type: 'GET',
@@ -26,7 +42,8 @@ document.addEventListener('DOMContentLoaded', function () {
         let newArticle = {
             'title': titleVal,
             'contents':contentsVal,
-            'userName':userNameVal
+            'userName':userNameVal,
+            'dateTime':dateTime
         };
 
         $.ajax({
